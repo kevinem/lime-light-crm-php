@@ -1,20 +1,20 @@
 <?php
 
 
-namespace KevinEm\LimeLight\Tests;
+namespace KevinEm\LimeLightCRM\Tests;
 
-use KevinEm\LimeLight\Exceptions\LimeLightTransactionException;
-use KevinEm\LimeLight\LimeLight;
-use KevinEm\LimeLight\Transaction;
+use KevinEm\LimeLightCRM\Exceptions\LimeLightCRMTransactionException;
+use KevinEm\LimeLightCRM\LimeLightCRM;
+use KevinEm\LimeLightCRM\Transaction;
 use Mockery as m;
 
 class TransactionTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var LimeLight
+     * @var LimeLightCRM
      */
-    protected $limeLight;
+    protected $limeLightCRM;
 
     /**
      * @var Transaction
@@ -29,11 +29,11 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
-        $this->limeLight = m::mock(LimeLight::class);
-        $this->limeLight->shouldReceive('getBaseUrl')->andReturn('mock_url');
-        $this->limeLight->shouldReceive('getResponse')->andReturn([]);
-        $this->limeLight->shouldReceive('parseResponse')->andReturn([]);
-        $this->transaction = new Transaction($this->limeLight);
+        $this->limeLightCRM = m::mock(LimeLightCRM::class);
+        $this->limeLightCRM->shouldReceive('getBaseUrl')->andReturn('mock_url');
+        $this->limeLightCRM->shouldReceive('getResponse')->andReturn([]);
+        $this->limeLightCRM->shouldReceive('parseResponse')->andReturn([]);
+        $this->transaction = new Transaction($this->limeLightCRM);
     }
 
     public function testGetMembershipUrl()
@@ -45,7 +45,7 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
     public function testExceptionIsThrown()
     {
-        $this->expectException(LimeLightTransactionException::class);
+        $this->expectException(LimeLightCRMTransactionException::class);
 
         $response = [
             'responseCode' => 200
@@ -56,42 +56,42 @@ class TransactionTest extends \PHPUnit_Framework_TestCase
 
     public function testNewOrder()
     {
-        $this->limeLight->shouldReceive('buildFormParams')->with('NewOrder', [])->andReturn([]);
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('NewOrder', [])->andReturn([]);
         $res = $this->transaction->newOrder([]);
         $this->assertEquals($res, []);
     }
 
     public function testNewOrderCardOnFile()
     {
-        $this->limeLight->shouldReceive('buildFormParams')->with('NewOrderCardOnFile', [])->andReturn([]);
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('NewOrderCardOnFile', [])->andReturn([]);
         $res = $this->transaction->newOrderCardOnFile([]);
         $this->assertEquals($res, []);
     }
 
     public function testNewOrderWithProspect()
     {
-        $this->limeLight->shouldReceive('buildFormParams')->with('NewOrderWithProspect', [])->andReturn([]);
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('NewOrderWithProspect', [])->andReturn([]);
         $res = $this->transaction->newOrderWithProspect([]);
         $this->assertEquals($res, []);
     }
 
     public function testAuthorizePayment()
     {
-        $this->limeLight->shouldReceive('buildFormParams')->with('authorize_payment', [])->andReturn([]);
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('authorize_payment', [])->andReturn([]);
         $res = $this->transaction->authorizePayment([]);
         $this->assertEquals($res, []);
     }
 
     public function testNewProspect()
     {
-        $this->limeLight->shouldReceive('buildFormParams')->with('NewProspect', [])->andReturn([]);
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('NewProspect', [])->andReturn([]);
         $res = $this->transaction->newProspect([]);
         $this->assertEquals($res, []);
     }
 
     public function testThreeDRedirect()
     {
-        $this->limeLight->shouldReceive('buildFormParams')->with('three_d_redirect', [])->andReturn([]);
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('three_d_redirect', [])->andReturn([]);
         $res = $this->transaction->threeDRedirect([]);
         $this->assertEquals($res, []);
     }

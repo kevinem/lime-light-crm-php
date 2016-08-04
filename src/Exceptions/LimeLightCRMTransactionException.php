@@ -1,10 +1,10 @@
 <?php
 
 
-namespace KevinEm\LimeLight\Exceptions;
+namespace KevinEm\LimeLightCRM\Exceptions;
 
 
-class LimeLightTransactionException extends LimeLightException
+class LimeLightCRMTransactionException extends LimeLightCRMException
 {
 
     public function __construct($code, \Exception $previous = null)

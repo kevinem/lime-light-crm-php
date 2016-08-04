@@ -1,4 +1,6 @@
-# LimeLight PHP Client
+# Lime Light CRM PHP Client
+
+https://www.limelightcrm.com/
 
 [![Latest Stable Version](https://poser.pugx.org/kevinem/lime-light-php/v/stable?format=flat-square)](https://packagist.org/packages/kevinem/lime-light-php)
 [![License](https://poser.pugx.org/kevinem/lime-light-php/license?format=flat-square)](https://packagist.org/packages/kevinem/lime-light-php)
@@ -9,7 +11,7 @@
 To install, use composer:
 
 ```
-composer require kevinem/lime-light-php
+composer require kevinem/lime-light-crm-php
 ```
 
 ## Documentation
@@ -19,27 +21,27 @@ http://help.limelightcrm.com/forums/261931-APIs
 ### Example Usage
 
 ```php
-$limelight = new LimeLight([
+$limelightCRM = new LimeLightCRM([
     'base_url' => 'your_url',
     'username' => 'your_username',
     'password' => 'your_password'
 ]);
 
-$limeLight->transaction()->newOrder([
+$limelightCRM->transaction()->newOrder([
     'firstName'  => 'John',
     'lastName' => 'Doe',
     'email' => 'jdoe@gmail.com'
 ]);
 
-$limeLight->transaction()->newOrderWithProspect([
+$limelightCRM->transaction()->newOrderWithProspect([
     'firstName'  => 'John',
     'lastName' => 'Doe',
     'email' => 'jdoe@gmail.com'         
 ]);
 
-$limeLight->membership()->findActiveCampaign();
+$limelightCRM->membership()->findActiveCampaign();
 
-$limeLight->membership()->viewCampaign([
+$limelightCRM->membership()->viewCampaign([
     'campaign_id' => 1     
 ]);
 

@@ -1,30 +1,30 @@
 <?php
 
 
-namespace KevinEm\LimeLight;
+namespace KevinEm\LimeLightCRM;
 
 
-use KevinEm\LimeLight\Exceptions\LimeLightMembershipException;
+use KevinEm\LimeLightCRM\Exceptions\LimeLightCRMMembershipException;
 
 /**
  * Class Membership
- * @package KevinEm\LimeLight
+ * @package KevinEm\LimeLightCRM
  */
 class Membership
 {
 
     /**
-     * @var LimeLight
+     * @var LimeLightCRM
      */
-    protected $limeLight;
+    protected $limeLightCRM;
 
     /**
      * Membership constructor.
-     * @param LimeLight $limeLight
+     * @param LimeLightCRM $limeLightCRM
      */
-    public function __construct(LimeLight $limeLight)
+    public function __construct(LimeLightCRM $limeLightCRM)
     {
-        $this->limeLight = $limeLight;
+        $this->LimeLightCRM = $limeLightCRM;
     }
 
     /**
@@ -32,17 +32,17 @@ class Membership
      */
     public function getMembershipUrl()
     {
-        return $this->limeLight->getBaseUrl() . '/admin/membership.php';
+        return $this->LimeLightCRM->getBaseUrl() . '/admin/membership.php';
     }
 
     /**
      * @param array $response
-     * @throws LimeLightMembershipException
+     * @throws LimeLightCRMMembershipException
      */
     public function checkResponse(array $response)
     {
         if (isset($response['response_code']) && $response['response_code'] != 100) {
-            throw new LimeLightMembershipException($response['response_code']);
+            throw new LimeLightCRMMembershipException($response['response_code']);
         }
     }
 
@@ -51,11 +51,11 @@ class Membership
      */
     public function findActiveCampaign()
     {
-        $formParams = $this->limeLight->buildFormParams('campaign_find_active');
+        $formParams = $this->LimeLightCRM->buildFormParams('campaign_find_active');
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -67,9 +67,9 @@ class Membership
      */
     public function validateCredentials()
     {
-        $formParams = $this->limeLight->buildFormParams('validate_credentials');
+        $formParams = $this->LimeLightCRM->buildFormParams('validate_credentials');
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
         return $res;
     }
@@ -80,11 +80,11 @@ class Membership
      */
     public function viewCampaign(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('campaign_view', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('campaign_view', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -97,11 +97,11 @@ class Membership
      */
     public function findCustomerActiveProduct(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('customer_find_active_product', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('customer_find_active_product', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -114,11 +114,11 @@ class Membership
      */
     public function calculateRefund(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_calculate_refund', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_calculate_refund', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -131,11 +131,11 @@ class Membership
      */
     public function findOverdueOrders(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_find_overdue', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_find_overdue', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -148,11 +148,11 @@ class Membership
      */
     public function refundOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_refund', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_refund', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -165,11 +165,11 @@ class Membership
      */
     public function voidOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_void', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_void', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -182,11 +182,11 @@ class Membership
      */
     public function forceOrderBill(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_force_bill', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_force_bill', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -199,11 +199,11 @@ class Membership
      */
     public function updateRecurringOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_update_recurring', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_update_recurring', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -216,11 +216,11 @@ class Membership
      */
     public function findOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_find', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_find', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -233,11 +233,11 @@ class Membership
      */
     public function findUpdatedOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_find_updated', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_find_updated', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -250,11 +250,11 @@ class Membership
      */
     public function updateOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_update', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_update', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -267,11 +267,11 @@ class Membership
      */
     public function updateSubscription(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('subscription_update', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('subscription_update', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -284,11 +284,11 @@ class Membership
      */
     public function viewOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_view', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_view', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -301,11 +301,11 @@ class Membership
      */
     public function indexProduct(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('product_index', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('product_index', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -318,11 +318,11 @@ class Membership
      */
     public function indexProductAttribute(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('product_attribute_index', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('product_attribute_index', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -335,11 +335,11 @@ class Membership
      */
     public function copyProduct(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('product_copy', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('product_copy', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -352,11 +352,11 @@ class Membership
      */
     public function updateProduct(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('product_update', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('product_update', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -369,11 +369,11 @@ class Membership
      */
     public function stopRecurringUpsell(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('upsell_stop_recurring', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('upsell_stop_recurring', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -386,11 +386,11 @@ class Membership
      */
     public function viewProspect(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('prospect_view', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('prospect_view', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -403,11 +403,11 @@ class Membership
      */
     public function updateProspect(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('prospect_update', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('prospect_update', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -420,11 +420,11 @@ class Membership
      */
     public function findProspect(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('prospect_find', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('prospect_find', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -437,11 +437,11 @@ class Membership
      */
     public function viewCustomer(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('customer_view', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('customer_view', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -454,11 +454,11 @@ class Membership
      */
     public function findCustomer(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('customer_find', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('customer_find', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -471,11 +471,11 @@ class Membership
      */
     public function reprocessOrder(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('order_reprocess', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('order_reprocess', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -488,11 +488,11 @@ class Membership
      */
     public function getAlternativeProvider(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('get_alternative_provider', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('get_alternative_provider', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -505,11 +505,11 @@ class Membership
      */
     public function repostToFulfillment(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('repost_to_fulfillment', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('repost_to_fulfillment', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -522,11 +522,11 @@ class Membership
      */
     public function viewShippingMethod(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('shipping_method_view', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('shipping_method_view', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -539,11 +539,11 @@ class Membership
      */
     public function findShippingMethod(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('shipping_method_find', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('shipping_method_find', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 
@@ -556,11 +556,11 @@ class Membership
      */
     public function validateCoupon(array $data)
     {
-        $formParams = $this->limeLight->buildFormParams('coupon_validate', $data);
+        $formParams = $this->LimeLightCRM->buildFormParams('coupon_validate', $data);
 
-        $res = $this->limeLight->getResponse('POST', $this->getMembershipUrl(), $formParams);
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
 
-        $parsed = $this->limeLight->parseResponse($res);
+        $parsed = $this->LimeLightCRM->parseResponse($res);
 
         $this->checkResponse($parsed);
 

@@ -1,16 +1,16 @@
 <?php
 
 
-namespace KevinEm\LimeLight;
+namespace KevinEm\LimeLightCRM;
 
 
 use GuzzleHttp\Client;
 
 /**
- * Class LimeLight
- * @package KevinEm\LimeLight
+ * Class LimeLightCRM
+ * @package KevinEm\LimeLightCRM
  */
-class LimeLight
+class LimeLightCRM
 {
 
     /**
@@ -44,7 +44,7 @@ class LimeLight
     protected $transaction;
 
     /**
-     * LimeLight constructor.
+     * LimeLightCRM constructor.
      * @param array $options
      */
     public function __construct(array $options)
@@ -126,7 +126,7 @@ class LimeLight
     }
 
     /**
-     * Parse response returned by limelight into an array
+     * Parse response returned by LimeLightCRM into an array
      *
      * @param $response
      * @return array

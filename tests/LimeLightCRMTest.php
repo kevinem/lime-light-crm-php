@@ -1,23 +1,23 @@
 <?php
 
 
-namespace KevinEm\LimeLight\Tests;
+namespace KevinEm\LimeLightCRM\Tests;
 
 
 use GuzzleHttp\Client;
-use KevinEm\LimeLight\LimeLight;
+use KevinEm\LimeLightCRM\LimeLightCRM;
 use Mockery as m;
 use Mockery\MockInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\StreamInterface;
 
-class LimeLightTest extends \PHPUnit_Framework_TestCase
+class LimeLightCRMTest extends \PHPUnit_Framework_TestCase
 {
 
     /**
-     * @var LimeLight
+     * @var LimeLightCRM
      */
-    protected $limeLight;
+    protected $limeLightCRM;
 
     /**
      * @var MockInterface
@@ -40,13 +40,13 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
 
         $this->clientMock = m::mock(Client::class);
 
-        $this->limeLight = new LimeLight([
+        $this->limeLightCRM = new LimeLightCRM([
             'base_url' => 'mock_base_url',
             'username' => 'mock_username',
             'password' => 'mock_password'
         ]);
 
-        $this->limeLight->setHttpClient($this->clientMock);
+        $this->limeLightCRM->setHttpClient($this->clientMock);
 
         $this->responseMock = m::mock(ResponseInterface::class);
 
@@ -55,12 +55,12 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
 
     public function testGetHttpClientNotNull()
     {
-        $this->assertNotNull($this->limeLight->getHttpClient());
+        $this->assertNotNull($this->limeLightCRM->getHttpClient());
     }
 
     public function testGetBaseUrl()
     {
-        $this->assertEquals($this->limeLight->getBaseUrl(), 'mock_base_url');
+        $this->assertEquals($this->limeLightCRM->getBaseUrl(), 'mock_base_url');
     }
 
     public function testGetResponse()
@@ -71,7 +71,7 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
         $this->responseMock->shouldReceive('getBody')->once()->andReturn($this->streamMock);
         $this->clientMock->shouldReceive('request')->with('mock_method', 'mock_uri',
             [])->once()->andReturn($this->responseMock);
-        $res = $this->limeLight->getResponse('mock_method', 'mock_uri', []);
+        $res = $this->limeLightCRM->getResponse('mock_method', 'mock_uri', []);
         $this->assertEquals($mock_content, $res);
     }
 
@@ -96,7 +96,7 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
             ]
         ];
 
-        $this->assertEquals($expected, $this->limeLight->buildFormParams('mock_method', $data));
+        $this->assertEquals($expected, $this->limeLightCRM->buildFormParams('mock_method', $data));
     }
 
     public function testGetDefaultFormParams()
@@ -106,14 +106,14 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
             'password' => 'mock_password'
         ];
 
-        $this->assertEquals($expected, $this->limeLight->getDefaultFormParams());
+        $this->assertEquals($expected, $this->limeLightCRM->getDefaultFormParams());
     }
 
     public function testParseResponse()
     {
         $response = 'mock1=mock2&mock3=mock4';
 
-        $res = $this->limeLight->parseResponse($response);
+        $res = $this->limeLightCRM->parseResponse($response);
 
         $expected = [
             'mock1' => 'mock2',
@@ -124,7 +124,7 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
 
         $response = 'mock1=mock2';
 
-        $res = $this->limeLight->parseResponse($response);
+        $res = $this->limeLightCRM->parseResponse($response);
 
         $expected = [
             'mock1' => 'mock2'
@@ -134,7 +134,7 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
 
         $response = 'mock1';
 
-        $res = $this->limeLight->parseResponse($response);
+        $res = $this->limeLightCRM->parseResponse($response);
 
         $expected = [
             'mock1'
@@ -145,11 +145,11 @@ class LimeLightTest extends \PHPUnit_Framework_TestCase
 
     public function testMembershipNotNull()
     {
-        $this->assertNotNull($this->limeLight->membership());
+        $this->assertNotNull($this->limeLightCRM->membership());
     }
 
     public function testTransactionNotNull()
     {
-        $this->assertNotNull($this->limeLight->transaction());
+        $this->assertNotNull($this->limeLightCRM->transaction());
     }
 }
