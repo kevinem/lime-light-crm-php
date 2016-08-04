@@ -7,7 +7,7 @@ namespace KevinEm\LimeLight\Exceptions;
 class LimeLightTransactionException extends LimeLightException
 {
 
-    public function __construct($code, \Exception $previous)
+    public function __construct($code, \Exception $previous = null)
     {
         $message = $this->getExceptionMessage($code);
 
@@ -16,6 +16,7 @@ class LimeLightTransactionException extends LimeLightException
 
     public function getExceptionMessage($code)
     {
+        // @codeCoverageIgnoreStart
         switch ($code) {
             case 101:
                 return '';
@@ -146,5 +147,6 @@ class LimeLightTransactionException extends LimeLightException
             default:
                 return 'Unknown exception';
         }
+        // @codeCoverageIgnoreEnd
     }
 }

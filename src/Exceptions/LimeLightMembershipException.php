@@ -7,7 +7,7 @@ namespace KevinEm\LimeLight\Exceptions;
 class LimeLightMembershipException extends LimeLightException
 {
 
-    public function __construct($code, \Exception $previous)
+    public function __construct($code, \Exception $previous = null)
     {
         $message = $this->getExceptionMessage($code);
 
@@ -16,6 +16,7 @@ class LimeLightMembershipException extends LimeLightException
 
     public function getExceptionMessage($code)
     {
+        // @codeCoverageIgnoreStart
         switch ($code) {
             case 200:
                 return 'Invalid login credentials';
@@ -262,5 +263,6 @@ class LimeLightMembershipException extends LimeLightException
             default:
                 return 'Unknown exception';
         }
+        // @codeCoverageIgnoreEnd
     }
 }
