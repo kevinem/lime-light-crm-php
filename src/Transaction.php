@@ -41,8 +41,20 @@ class Transaction
      */
     public function checkResponse(array $response)
     {
-        if (isset($response['responseCode']) && $response['responseCode'] != 100) {
-            throw new LimeLightCRMTransactionException($response['responseCode']);
+        $exception = null;
+
+        if (isset($response['response_code'])) {
+            $responses = explode(',', $response['response_code']);
+
+            foreach ($responses as $code) {
+                if (!in_array($code, [100])) {
+                    $exception = new LimeLightCRMTransactionException($code, $exception);
+                }
+            }
+        }
+
+        if (isset($exception)) {
+            throw $exception;
         }
     }
 

@@ -41,8 +41,20 @@ class Membership
      */
     public function checkResponse(array $response)
     {
-        if (isset($response['response_code']) && $response['response_code'] != 100) {
-            throw new LimeLightCRMMembershipException($response['response_code']);
+        $exception = null;
+
+        if (isset($response['response_code'])) {
+            $responses = explode(',', $response['response_code']);
+
+            foreach ($responses as $code) {
+                if (!in_array($code, [100, 343])) {
+                    $exception = new LimeLightCRMMembershipException($code, $exception);
+                }
+            }
+        }
+
+        if (isset($exception)) {
+            throw $exception;
         }
     }
 
