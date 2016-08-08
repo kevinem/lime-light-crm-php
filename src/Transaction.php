@@ -43,8 +43,8 @@ class Transaction
     {
         $exception = null;
 
-        if (isset($response['response_code'])) {
-            $responses = explode(',', $response['response_code']);
+        if (isset($response['responseCode'])) {
+            $responses = explode(',', $response['responseCode']);
 
             foreach ($responses as $code) {
                 if (!in_array($code, [100])) {
