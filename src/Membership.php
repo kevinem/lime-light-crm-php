@@ -379,6 +379,40 @@ class Membership
      * @param array $data
      * @return array
      */
+    public function createProduct(array $data)
+    {
+        $formParams = $this->LimeLightCRM->buildFormParams('product_create', $data);
+
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
+
+        $parsed = $this->LimeLightCRM->parseResponse($res);
+
+        $this->checkResponse($parsed);
+
+        return $parsed;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
+    public function deleteProduct(array $data)
+    {
+        $formParams = $this->LimeLightCRM->buildFormParams('product_delete', $data);
+
+        $res = $this->LimeLightCRM->getResponse('POST', $this->getMembershipUrl(), $formParams);
+
+        $parsed = $this->LimeLightCRM->parseResponse($res);
+
+        $this->checkResponse($parsed);
+
+        return $parsed;
+    }
+
+    /**
+     * @param array $data
+     * @return array
+     */
     public function stopRecurringUpsell(array $data)
     {
         $formParams = $this->LimeLightCRM->buildFormParams('upsell_stop_recurring', $data);

@@ -188,6 +188,20 @@ class MembershipTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($res, []);
     }
 
+    public function testCreateProduct()
+    {
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('product_create', [])->andReturn([]);
+        $res = $this->membership->createProduct([]);
+        $this->assertEquals($res, []);
+    }
+
+    public function testDeleteProduct()
+    {
+        $this->limeLightCRM->shouldReceive('buildFormParams')->with('product_delete', [])->andReturn([]);
+        $res = $this->membership->deleteProduct([]);
+        $this->assertEquals($res, []);
+    }
+
     public function testStopRecurringUpsell()
     {
         $this->limeLightCRM->shouldReceive('buildFormParams')->with('upsell_stop_recurring', [])->andReturn([]);
