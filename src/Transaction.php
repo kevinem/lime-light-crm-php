@@ -48,7 +48,7 @@ class Transaction
 
             foreach ($responses as $code) {
                 if (!in_array($code, [100])) {
-                    $exception = new LimeLightCRMTransactionException($code, $exception);
+                    $exception = new LimeLightCRMTransactionException($code, $exception, $response);
                 }
             }
         }

@@ -7,11 +7,9 @@ namespace KevinEm\LimeLightCRM\Exceptions;
 class LimeLightCRMTransactionException extends LimeLightCRMException
 {
 
-    public function __construct($code, \Exception $previous = null)
+    public function __construct($code, \Exception $previous = null, array $response = [])
     {
-        $message = $this->getExceptionMessage($code);
-
-        parent::__construct($message, $code, $previous);
+        parent::__construct($this->getExceptionMessage($code), $code, $previous, $response);
     }
 
     public function getExceptionMessage($code)

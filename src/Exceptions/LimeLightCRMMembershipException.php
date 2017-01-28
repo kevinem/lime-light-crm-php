@@ -7,11 +7,9 @@ namespace KevinEm\LimeLightCRM\Exceptions;
 class LimeLightCRMMembershipException extends LimeLightCRMException
 {
 
-    public function __construct($code, \Exception $previous = null)
+    public function __construct($code, \Exception $previous = null, array $response = [])
     {
-        $message = $this->getExceptionMessage($code);
-
-        parent::__construct($message, $code, $previous);
+        parent::__construct($this->getExceptionMessage($code), $code, $previous, $response);
     }
 
     public function getExceptionMessage($code)
@@ -29,7 +27,7 @@ class LimeLightCRMMembershipException extends LimeLightCRMException
             case 321:
                 return 'Existing Product Category Id Not Found';
             case 322:
-                return ' Invalid Category Id';
+                return 'Invalid Category Id';
             case 323:
                 return 'Digital Delivery and Digital URL must be paired together and digital URL must be a valid URL';
             case 324:

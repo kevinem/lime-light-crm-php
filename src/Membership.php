@@ -48,7 +48,7 @@ class Membership
 
             foreach ($responses as $code) {
                 if (!in_array($code, [100, 343])) {
-                    $exception = new LimeLightCRMMembershipException($code, $exception);
+                    $exception = new LimeLightCRMMembershipException($code, $exception, $response);
                 }
             }
         }
