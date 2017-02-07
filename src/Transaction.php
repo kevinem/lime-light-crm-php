@@ -36,20 +36,26 @@ class Transaction
     }
 
     /**
+     * NOTE: Account for LimeLight's inconsistent response camel/snake case
+     *
      * @param array $response
      * @throws LimeLightCRMTransactionException
      */
     public function checkResponse(array $response)
     {
-        $exception = null;
+        $exception = $responses = null;
 
         if (isset($response['responseCode'])) {
             $responses = explode(',', $response['responseCode']);
+        }
 
-            foreach ($responses as $code) {
-                if (!in_array($code, [100])) {
-                    $exception = new LimeLightCRMTransactionException($code, $exception, $response);
-                }
+        if (isset($response['response_code'])) {
+            $responses = explode(',', $response['response_code']);
+        }
+
+        foreach ($responses as $code) {
+            if (!in_array($code, [100])) {
+                $exception = new LimeLightCRMTransactionException($code, $exception, $response);
             }
         }
 
