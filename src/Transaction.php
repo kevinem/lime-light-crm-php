@@ -53,9 +53,11 @@ class Transaction
             $responses = explode(',', $response['response_code']);
         }
 
-        foreach ($responses as $code) {
-            if (!in_array($code, [100])) {
-                $exception = new LimeLightCRMTransactionException($code, $exception, $response);
+        if (isset($responses)) {
+            foreach ($responses as $code) {
+                if (!in_array($code, [100])) {
+                    $exception = new LimeLightCRMTransactionException($code, $exception, $response);
+                }
             }
         }
 
